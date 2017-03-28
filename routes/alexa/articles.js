@@ -10,7 +10,7 @@ module.exports = function getPosts(req, res) {
 	Post.model.find(function(err, items) {
 
 		if (err) return res.apiError('database error', err);
-		console.log(items);
+		
 		var alexaCompliantItems = items.map((item) => {
 			return {
 				uid: item._id,
