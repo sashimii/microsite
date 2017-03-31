@@ -31,6 +31,16 @@ module.exports = function getPosts(req, res) {
 			}
 		}
 
+		let sampleAd = {
+			uid: 'ad-0001',
+			updateDate: new Date().toISOString(),
+			titleText: 'Real Fake Doors!',
+			mainText: 'A message from our sponsor',
+			streamUrl: 'https://github.com/sashimii/microsite/raw/master/fakedoors.ogg',
+			redirectionUrl: `https://microsite-torstar.herokuapp.com/`
+		}
+		alexaCompliantItems.push(sampleAd);
+
 		res.send(alexaCompliantItems);
 
 	});
