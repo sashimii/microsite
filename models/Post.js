@@ -30,5 +30,5 @@ Post.schema.virtual('content.full').get(function () {
 	return this.content.extended || this.content.brief;
 });
 
-Post.defaultColumns = 'title, order, state|20%, author|20%, publishedDate|20%';
+Post.defaultColumns = 'title, order| 5%, state|20%, author|20%, publishedDate|20%';
 Post.register();
