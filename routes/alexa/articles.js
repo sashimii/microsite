@@ -18,7 +18,7 @@ module.exports = function getPosts(req, res) {
 					uid: item._id,
 					updateDate: item.publishedDate,
 					titleText: item.title,
-					mainText: encode_utf8(strip(item.content.brief)),
+					mainText: strip(item.content.brief).replace(/&nbsp;/gi,'').replace(/&rsquo;/gi,`'`),
 					redirectionUrl: `https://microsite-torstar.herokuapp.com/articles/post/${item.slug}`
 				};
 			}
@@ -31,14 +31,22 @@ module.exports = function getPosts(req, res) {
 			}
 		}
 
+		let sponsoredContentNotice = {
+			uid: 'ad-notice-0001',
+			updateDate: new Date().toISOString(),
+			titleText: '',
+			mainText: 'A message from our sponsor!',
+			redirectionUrl: `https://microsite-torstar.herokuapp.com/`
+		}
 		let sampleAd = {
 			uid: 'ad-0001',
 			updateDate: new Date().toISOString(),
 			titleText: 'Real Fake Doors!',
-			mainText: 'A message from our sponsor',
+			mainText: 'Now, a message from our sponsor',
 			streamUrl: 'https://github.com/sashimii/microsite/raw/master/fakedoors.wav',
 			redirectionUrl: `https://microsite-torstar.herokuapp.com/`
 		}
+		alexaCompliantItems.push(sponsoredContentNotice)
 		alexaCompliantItems.push(sampleAd);
 
 		res.send(alexaCompliantItems);
