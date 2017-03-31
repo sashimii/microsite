@@ -11,7 +11,7 @@ module.exports = function getPosts(req, res) {
 
 		if (err) return res.apiError('database error', err);
 
-
+		console.log(items);
 		let alexaCompliantItems = items.map((item, index, array) => {
 			if(item.state === 'published') {
 				return {
@@ -34,7 +34,7 @@ module.exports = function getPosts(req, res) {
 		let sponsoredContentNotice = {
 			uid: 'ad-notice-0001',
 			updateDate: new Date().toISOString(),
-			titleText: '',
+			titleText: 'Sponsored Content Notice',
 			mainText: 'A message from our sponsor!',
 			redirectionUrl: `https://microsite-torstar.herokuapp.com/`
 		}
