@@ -42,7 +42,7 @@ exports = module.exports = function (app) {
 	app.all('/contact', routes.views.contact);
 
 	// Alexa Feed
-	app.get('/api/alexa/articles/', getArticles);
+	app.get('/api/alexa/articles/:audio', getArticles);
 
 	// AMP IT UP
 	app.get('/amp/articles/post/:post', routes.views.post);

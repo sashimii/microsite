@@ -13,8 +13,9 @@ module.exports = function getPosts(req, res) {
 
 		console.log(items);
 		let alexaCompliantItems = items.map((item, index, array) => {
+			let compliantJson = {};
 			if(item.state === 'published') {
-				return {
+				compliantJson = {
 					uid: item._id,
 					updateDate: item.publishedDate,
 					titleText: item.title,
@@ -22,6 +23,10 @@ module.exports = function getPosts(req, res) {
 					redirectionUrl: `https://microsite-torstar.herokuapp.com/articles/post/${item.slug}`
 				};
 			}
+			if(req.params.audio === 'stream') {
+				compliantJson.streamUrl = item.content.voice;
+			}
+			return compliantJson;
 		});
 
 		for(let i = 0; i < alexaCompliantItems.length; i++) {
