@@ -10,16 +10,26 @@ module.exports = function getPosts(req, res) {
 	Post.model.find(function(err, items) {
 
 		if (err) return res.apiError('database error', err);
-		
-		var alexaCompliantItems = items.map((item) => {
-			return {
-				uid: item._id,
-				updateDate: item.publishedDate,
-				titleText: item.title,
-				mainText: encode_utf8(strip(item.content.brief)),
-				redirectionUrl: `https://microsite-torstar.herokuapp.com/articles/post/${item.slug}`
+
+
+		let alexaCompliantItems = items.map((item, index, array) => {
+			if(item.state === 'published') {
+				return {
+					uid: item._id,
+					updateDate: item.publishedDate,
+					titleText: item.title,
+					mainText: encode_utf8(strip(item.content.brief)),
+					redirectionUrl: `https://microsite-torstar.herokuapp.com/articles/post/${item.slug}`
+				};
 			}
 		});
+
+		for(let i = 0; i < alexaCompliantItems.length; i++) {
+			if(!alexaCompliantItems[i]) {
+				alexaCompliantItems.splice(i,1);
+				i--;
+			}
+		}
 
 		res.send(alexaCompliantItems);
 

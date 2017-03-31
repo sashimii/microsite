@@ -207,6 +207,23 @@ module.exports = function () {
 		return ('/articles/' + categorySlug);
 	};
 
+	_helpers.ifAMP = function (context, options) {
+		if(context === 'amp') {
+			return options.fn(this);
+		} else {
+			return options.inverse(this);
+		}
+	}
+
+	_helpers.ifIA = function (context, options) {
+		if(context === 'ia') {
+			return options.fn(this);
+		} else {
+			return options.inverse(this);
+		}
+	}
+
+
 	// ### Pagination Helpers
 	// These are helpers used in rendering a pagination system for content
 	// Mostly generalized and with a small adjust to `_helper.pageUrl` could be universal for content types

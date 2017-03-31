@@ -43,7 +43,12 @@ exports = module.exports = function (app) {
 
 	// Alexa Feed
 	app.get('/api/alexa/articles/', getArticles);
-	// app.get('/api/alexa/blog/post/:post', routes.alexa.post);
+
+	// AMP IT UP
+	app.get('/amp/articles/post/:post', routes.views.post);
+
+	// Instant Articles
+	app.get('/ia/articles/post/:post', routes.views.post);
 
 	// NOTE: To protect a route so that only admins can see it, use the requireUser middleware:
 	// app.get('/protected', middleware.requireUser, routes.views.protected);

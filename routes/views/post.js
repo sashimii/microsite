@@ -2,8 +2,10 @@ var keystone = require('keystone');
 
 exports = module.exports = function (req, res) {
 
+
 	var view = new keystone.View(req, res);
 	var locals = res.locals;
+	const contentType = getContentType(req.path);
 
 	// Set locals
 	locals.section = 'articles';
@@ -13,6 +15,7 @@ exports = module.exports = function (req, res) {
 	locals.data = {
 		posts: [],
 	};
+	locals.render = contentType;
 
 	// Load the current post
 	view.on('init', function (next) {
@@ -40,7 +43,24 @@ exports = module.exports = function (req, res) {
 		});
 
 	});
+	console.log(res);
 
 	// Render the view
-	view.render('post');
+	view.render(`post.${contentType}.hbs`);
 };
+
+function getContentType(path) {
+	const firstSection = path.split('/')[1];
+	switch(firstSection) {
+		case 'amp':
+			return 'amp';
+			break;
+		case 'ia':
+			return 'ia';
+			break;
+		default:
+			return 'html';
+			break;
+	}
+
+}
