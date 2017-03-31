@@ -1,6 +1,7 @@
 var keystone = require('keystone');
 var async = require('async');
 var Post = keystone.list('Post');
+var Category = keystone.list('PostCategory');
 var strip = require('strip');
 
 /**
@@ -23,11 +24,15 @@ module.exports = function getPosts(req, res) {
 					redirectionUrl: `https://microsite-torstar.herokuapp.com/articles/post/${item.slug}`
 				};
 			}
+			Category.model.findById(item.categories[0], (err, categoryItems) => {
+				console.log(categoryItems);
+			});
 			if(req.params.audio === 'stream') {
 				compliantJson.streamUrl = item.content.voice;
 			}
 			return compliantJson;
 		});
+
 
 		for(let i = 0; i < alexaCompliantItems.length; i++) {
 			if(!alexaCompliantItems[i]) {
@@ -41,6 +46,7 @@ module.exports = function getPosts(req, res) {
 			updateDate: new Date().toISOString(),
 			titleText: 'Sponsored Content Notice',
 			mainText: 'A message from our sponsor!',
+			streamUrl: 'https://s3.ca-central-1.amazonaws.com/alexa-torstar/Transition+5.wav',
 			redirectionUrl: `https://microsite-torstar.herokuapp.com/`
 		}
 		let sampleAd = {
