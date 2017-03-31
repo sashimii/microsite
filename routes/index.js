@@ -43,6 +43,7 @@ exports = module.exports = function (app) {
 
 	// Alexa Feed
 	app.get('/api/alexa/articles/:audio', getArticles);
+	app.get('/api/alexa/articles/', getArticles);
 
 	// AMP IT UP
 	app.get('/amp/articles/post/:post', routes.views.post);
