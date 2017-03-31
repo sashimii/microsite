@@ -13,6 +13,7 @@ var Post = new keystone.List('Post', {
 
 Post.add({
 	title: { type: String, required: true },
+	order: { type: Types.Number },
 	state: { type: Types.Select, options: 'draft, published, archived', default: 'draft', index: true },
 	author: { type: Types.Relationship, ref: 'User', index: true },
 	publishedDate: { type: Types.Date, index: true, dependsOn: { state: 'published' } },
@@ -29,5 +30,5 @@ Post.schema.virtual('content.full').get(function () {
 	return this.content.extended || this.content.brief;
 });
 
-Post.defaultColumns = 'title, state|20%, author|20%, publishedDate|20%';
+Post.defaultColumns = 'title, order, state|20%, author|20%, publishedDate|20%';
 Post.register();
