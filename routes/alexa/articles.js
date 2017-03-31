@@ -36,7 +36,7 @@ module.exports = function getPosts(req, res) {
 			updateDate: new Date().toISOString(),
 			titleText: 'Real Fake Doors!',
 			mainText: 'A message from our sponsor',
-			streamUrl: 'https://github.com/sashimii/microsite/raw/master/fakedoors.ogg',
+			streamUrl: 'https://github.com/sashimii/microsite/raw/master/fakedoors.wav',
 			redirectionUrl: `https://microsite-torstar.herokuapp.com/`
 		}
 		alexaCompliantItems.push(sampleAd);
